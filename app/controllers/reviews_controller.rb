@@ -1,5 +1,6 @@
 class ReviewsController < ApplicationController
 
+
   def index 
       reviews = Review.all 
       render json: reviews
@@ -12,11 +13,11 @@ class ReviewsController < ApplicationController
 
   #post a review
   def create
-      review = Review.create(review_params) 
-
-      if review.save
-          render json: review
-      end
+    # binding.pry
+    reviews = Review.create(review_params) 
+    if reviews.save
+        render json: reviews
+    end
   end
 
   # patch a review
@@ -27,15 +28,25 @@ class ReviewsController < ApplicationController
   end 
 
   #delete a review 
-  def destroy
-      review = Review.find(params[:id]) 
-      review.destroy
-  end
+   def destroy
+        @review = Review.find(params[:id])
+        @review.destroy
+
+        render json: @review
+    end
+
 end
 
 
   private
 
     def review_params
-      params.require(:review).permit(:name, :content, :fruit_id, :market_id)
+      params.require(:review).permit(:name, :content, :market_id)
     end
+
+
+
+
+
+
+
