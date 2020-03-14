@@ -11,13 +11,11 @@ class ReviewsController < ApplicationController
       render json: Review.find(params[:id])
   end
 
-  #post a review
+  # post a review
   def create
-    # binding.pry
-    reviews = Review.create(review_params) 
-    if reviews.save
-        render json: reviews
-    end
+    reviews = Review.create!(review_params)
+    reviews.save
+    render json: reviews
   end
 
   # patch a review
